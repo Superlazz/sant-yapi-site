@@ -329,11 +329,7 @@ export default function SantYapiWebsiteConcept() {
 
           <div className="grid gap-12 py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-32">
             <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 px-4 py-2 text-sm text-yellow-200">
-                <SparklesIcon className="h-4 w-4" />
-                Kalıp, donatı ve uygulama çizimlerinde temiz pafta standardı
-              </div>
-
+             
               <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
                 Projeleriniz için net, okunabilir ve sahaya uygun teknik çizimler.
               </h1>
