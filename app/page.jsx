@@ -269,20 +269,21 @@ export default function SantYapiWebsiteConcept() {
   function handleContactSubmit(event) {
     event.preventDefault();
 
-    const subject = "Sant Yapı Web Sitesi - Yeni İletişim Talebi";
-    const body = [
-      "Merhaba Sant Yapı,",
-      "",
-      "Web sitenizdeki iletişim formu üzerinden ulaşıyorum.",
-      "",
-      `Ad / Firma: ${formData.name}`,
-      `Telefon veya E-posta: ${formData.contact}`,
-      `Hizmet: ${formData.service || "Belirtilmedi"}`,
-      "",
-      "Mesaj:",
-      formData.message,
-    ].join("
-");
+   const subject = "Sant Yapı Web Sitesi - Yeni İletişim Talebi";
+const lineBreak = String.fromCharCode(10);
+
+const body = [
+  "Merhaba Sant Yapı,",
+  "",
+  "Web sitenizdeki iletişim formu üzerinden ulaşıyorum.",
+  "",
+  `Ad / Firma: ${formData.name}`,
+  `Telefon veya E-posta: ${formData.contact}`,
+  `Hizmet: ${formData.service || "Belirtilmedi"}`,
+  "",
+  "Mesaj:",
+  formData.message,
+].join(lineBreak);
 
     const mailtoUrl = `mailto:info@santyapi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
