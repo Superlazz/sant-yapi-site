@@ -269,30 +269,26 @@ export default function SantYapiWebsiteConcept() {
   function handleContactSubmit(event) {
     event.preventDefault();
 
-   const subject = "Sant Yapı Web Sitesi - Yeni İletişim Talebi";
-const lineBreak = String.fromCharCode(10);
-
-const body = [
-  "Merhaba Sant Yapı,",
-  "",
-  "Web sitenizdeki iletişim formu üzerinden ulaşıyorum.",
-  "",
-  `Ad / Firma: ${formData.name}`,
-  `Telefon veya E-posta: ${formData.contact}`,
-  `Hizmet: ${formData.service || "Belirtilmedi"}`,
-  "",
-  "Mesaj:",
-  formData.message,
-].join(lineBreak);
+    const subject = "Sant Yapı Web Sitesi - Yeni İletişim Talebi";
+    const lineBreak = String.fromCharCode(10);
+    const body = [
+      "Merhaba Sant Yapı,",
+      "",
+      "Web sitenizdeki iletişim formu üzerinden ulaşıyorum.",
+      "",
+      `Ad / Firma: ${formData.name}`,
+      `Telefon veya E-posta: ${formData.contact}`,
+      `Hizmet: ${formData.service || "Belirtilmedi"}`,
+      "",
+      "Mesaj:",
+      formData.message,
+    ].join(lineBreak);
 
     const mailtoUrl = `mailto:info@santyapi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailtoUrl;
 
-    setFormStatus({
-      type: "success",
-      message: "E-posta uygulamanız açıldı. Mesajı göndermek için açılan mail ekranında Gönder'e basın.",
-    });
+    setFormStatus({ type: "idle", message: "" });
   }
 
   return (
@@ -530,13 +526,8 @@ const body = [
                 disabled={formStatus.type === "sending"}
                 className="rounded-full bg-yellow-400 px-7 py-4 font-bold text-black transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Mail Uygulamasını Aç
+                Mesaj Gönder
               </button>
-              {formStatus.message ? (
-                <p className={formStatus.type === "error" ? "text-sm text-red-300" : "text-sm text-yellow-200"}>
-                  {formStatus.message}
-                </p>
-              ) : null}
             </div>
           </form>
         </div>
