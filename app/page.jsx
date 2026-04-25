@@ -4,10 +4,10 @@ import React, { useState } from "react";
 
 /**
  * Sant Yapı landing page
- * Debug fix:
- * - Removed lucide-react imports because CDN icon fetch failed.
- * - Removed framer-motion to keep the component dependency-free.
- * - Replaced all icons with inline SVG React components.
+ * - Teknik çizim ofisi odaklıdır.
+ * - Logo /public/sant-yapi-logo.png dosyasından gelir.
+ * - WhatsApp butonu eklenmiştir.
+ * - İletişim formu ziyaretçinin mail uygulamasını açar.
  */
 
 function IconBase({ children, className = "h-6 w-6", viewBox = "0 0 24 24" }) {
@@ -132,15 +132,6 @@ function RulerIcon({ className }) {
   );
 }
 
-function ShieldCheckIcon({ className }) {
-  return (
-    <IconBase className={className}>
-      <path d="M12 3s5 2 7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6c2-1 7-3 7-3Z" />
-      <path d="m9.5 12 1.8 1.8 3.7-3.8" />
-    </IconBase>
-  );
-}
-
 function SparklesIcon({ className }) {
   return (
     <IconBase className={className}>
@@ -162,6 +153,9 @@ function WorkflowIcon({ className }) {
     </IconBase>
   );
 }
+
+const whatsappUrl =
+  "https://wa.me/905309057336?text=Merhaba%20Sant%20Yap%C4%B1%2C%20proje%20%C3%A7izimleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
 
 const services = [
   {
@@ -190,7 +184,7 @@ const stats = [
   ["01", "Hızlı Geri Dönüş"],
   ["02", "Temiz Pafta Düzeni"],
   ["03", "Detaylı Donatı Açılımları"],
-  ["04", "Temiz Çizim Standardı"],
+  ["04", "Kontrollü Revizyon Takibi"],
 ];
 
 const process = [
@@ -200,7 +194,6 @@ const process = [
   "Kalıp, donatı ve uygulama çizimlerinin hazırlanması",
   "Revizyon takibi ve teslim paketi",
 ];
-
 
 const projectGallery = [
   {
@@ -228,9 +221,15 @@ const projectGallery = [
 function SectionTitle({ eyebrow, title, description }) {
   return (
     <div className="max-w-3xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">{eyebrow}</p>
-      <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">{title}</h2>
-      {description ? <p className="mt-5 leading-8 text-stone-400">{description}</p> : null}
+      <p className="text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">
+        {eyebrow}
+      </p>
+      <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">
+        {title}
+      </h2>
+      {description ? (
+        <p className="mt-5 leading-8 text-stone-400">{description}</p>
+      ) : null}
     </div>
   );
 }
@@ -257,10 +256,6 @@ export default function SantYapiWebsiteConcept() {
     service: "",
     message: "",
   });
-  const [formStatus, setFormStatus] = useState({
-    type: "idle",
-    message: "",
-  });
 
   function updateFormField(field, value) {
     setFormData((current) => ({ ...current, [field]: value }));
@@ -271,6 +266,7 @@ export default function SantYapiWebsiteConcept() {
 
     const subject = "Sant Yapı Web Sitesi - Yeni İletişim Talebi";
     const lineBreak = String.fromCharCode(10);
+
     const body = [
       "Merhaba Sant Yapı,",
       "",
@@ -284,11 +280,11 @@ export default function SantYapiWebsiteConcept() {
       formData.message,
     ].join(lineBreak);
 
-    const mailtoUrl = `mailto:info@santyapi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:info@santyapi.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailtoUrl;
-
-    setFormStatus({ type: "idle", message: "" });
   }
 
   return (
@@ -300,24 +296,33 @@ export default function SantYapiWebsiteConcept() {
 
         <div className="relative mx-auto max-w-7xl px-6 py-6 lg:px-8">
           <nav className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-2xl border border-yellow-500/40 bg-yellow-500/10 shadow-lg shadow-yellow-900/20">
-                <span className="font-serif text-xl font-bold text-yellow-300">S</span>
-              </div>
-              <div>
-                <p className="text-lg font-semibold tracking-[0.20em] text-white">SANT YAPI</p>
-                <p className="text-xs uppercase tracking-[0.25em] text-yellow-300/70">Statik Proje Ofisi</p>
-              </div>
-            </div>
+            <a href="#" className="flex items-center gap-3" aria-label="Sant Yapı ana sayfa">
+              <img
+                src="/sant-yapi-logo.png"
+                alt="Sant Yapı"
+                className="h-14 w-auto object-contain md:h-16"
+              />
+            </a>
 
             <div className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
-              <a href="#hizmetler" className="hover:text-yellow-300">Hizmetler</a>
-              <a href="#surec" className="hover:text-yellow-300">Süreç</a>
-              <a href="#galeri" className="hover:text-yellow-300">Görseller</a>
-              <a href="#iletisim" className="hover:text-yellow-300">İletişim</a>
+              <a href="#hizmetler" className="hover:text-yellow-300">
+                Hizmetler
+              </a>
+              <a href="#surec" className="hover:text-yellow-300">
+                Süreç
+              </a>
+              <a href="#galeri" className="hover:text-yellow-300">
+                Görseller
+              </a>
+              <a href="#iletisim" className="hover:text-yellow-300">
+                İletişim
+              </a>
             </div>
 
-            <a href="#iletisim" className="hidden rounded-full border border-yellow-500/40 px-5 py-2 text-sm font-medium text-yellow-200 transition hover:bg-yellow-500 hover:text-black md:inline-flex">
+            <a
+              href="#iletisim"
+              className="hidden rounded-full border border-yellow-500/40 px-5 py-2 text-sm font-medium text-yellow-200 transition hover:bg-yellow-500 hover:text-black md:inline-flex"
+            >
               Teklif Al
             </a>
           </nav>
@@ -328,17 +333,38 @@ export default function SantYapiWebsiteConcept() {
                 <SparklesIcon className="h-4 w-4" />
                 Kalıp, donatı ve uygulama çizimlerinde temiz pafta standardı
               </div>
+
               <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
                 Projeleriniz için net, okunabilir ve sahaya uygun teknik çizimler.
               </h1>
+
               <p className="mt-7 max-w-2xl text-lg leading-8 text-stone-300">
-                Sant Yapı; kalıp planı, kolon-perde-kiriş-döşeme detayları, temel ve merdiven çizimleri gibi uygulama paftalarını hızlı, okunabilir ve kontrollü bir çizim standardıyla hazırlar.
+                Sant Yapı; kalıp planı, kolon-perde-kiriş-döşeme detayları, temel ve
+                merdiven çizimleri gibi uygulama paftalarını hızlı, okunabilir ve
+                kontrollü bir çizim standardıyla hazırlar.
               </p>
+
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <a href="#iletisim" className="inline-flex items-center justify-center gap-2 rounded-full bg-yellow-400 px-7 py-3 font-semibold text-black shadow-xl shadow-yellow-900/20 transition hover:bg-yellow-300">
+                <a
+                  href="#iletisim"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-yellow-400 px-7 py-3 font-semibold text-black shadow-xl shadow-yellow-900/20 transition hover:bg-yellow-300"
+                >
                   Projeni Gönder <ArrowRightIcon className="h-4 w-4" />
                 </a>
-                <a href="#hizmetler" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3 font-semibold text-white transition hover:border-yellow-400/60 hover:text-yellow-200">
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-yellow-400/50 px-7 py-3 font-semibold text-yellow-200 transition hover:bg-yellow-400 hover:text-black"
+                >
+                  WhatsApp'tan Yaz
+                </a>
+
+                <a
+                  href="#hizmetler"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3 font-semibold text-white transition hover:border-yellow-400/60 hover:text-yellow-200"
+                >
                   Hizmetleri İncele
                 </a>
               </div>
@@ -349,23 +375,40 @@ export default function SantYapiWebsiteConcept() {
                 <div className="rounded-[1.5rem] border border-yellow-500/20 bg-[#11100e] p-6">
                   <div className="flex items-center justify-between border-b border-white/10 pb-5">
                     <div>
-                      <p className="text-sm uppercase tracking-[0.25em] text-yellow-300/70">Proje Paketi</p>
-                      <h3 className="mt-2 text-2xl font-semibold text-white">Teknik Çizim Üretim Akışı</h3>
+                      <p className="text-sm uppercase tracking-[0.25em] text-yellow-300/70">
+                        Proje Paketi
+                      </p>
+                      <h3 className="mt-2 text-2xl font-semibold text-white">
+                        Teknik Çizim Üretim Akışı
+                      </h3>
                     </div>
+
                     <RulerIcon className="h-9 w-9 text-yellow-300" />
                   </div>
+
                   <div className="mt-6 space-y-4">
                     {[
                       ["Kalıp Planı", "Aks, kolon, perde, kiriş ve döşeme çizim düzeni"],
-                      ["Donatı Detayları", "Kolon, perde, kiriş, temel, döşeme ve merdiven paftaları"],
-                      ["Revizyon Takibi", "Mimari ve saha notlarına göre güncel çizim teslimi"],
+                      [
+                        "Donatı Detayları",
+                        "Kolon, perde, kiriş, temel, döşeme ve merdiven paftaları",
+                      ],
+                      [
+                        "Revizyon Takibi",
+                        "Mimari ve saha notlarına göre güncel çizim teslimi",
+                      ],
                     ].map(([title, text]) => (
-                      <div key={title} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                      <div
+                        key={title}
+                        className="rounded-2xl border border-white/10 bg-black/20 p-4"
+                      >
                         <div className="flex gap-3">
                           <CheckCircleIcon className="mt-1 h-5 w-5 shrink-0 text-yellow-300" />
                           <div>
                             <p className="font-semibold text-white">{title}</p>
-                            <p className="mt-1 text-sm leading-6 text-stone-400">{text}</p>
+                            <p className="mt-1 text-sm leading-6 text-stone-400">
+                              {text}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -378,9 +421,13 @@ export default function SantYapiWebsiteConcept() {
         </div>
       </section>
 
+      {/* Devam eden bölümler */}
       <section className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-6 py-10 lg:grid-cols-4 lg:px-8">
         {stats.map(([number, label]) => (
-          <div key={label} className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <div
+            key={label}
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+          >
             <p className="text-sm text-yellow-300">{number}</p>
             <p className="mt-2 text-lg font-semibold text-white">{label}</p>
           </div>
@@ -388,10 +435,17 @@ export default function SantYapiWebsiteConcept() {
       </section>
 
       <section id="hizmetler" className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <SectionTitle eyebrow="Hizmetler" title="Teknik çizim üretiminde ihtiyacınız olan ana başlıklar." />
+        <SectionTitle
+          eyebrow="Hizmetler"
+          title="Teknik çizim üretiminde ihtiyacınız olan ana başlıklar."
+        />
+
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service) => (
-            <article key={service.title} className="group rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-6 transition hover:-translate-y-1 hover:border-yellow-400/40 hover:bg-yellow-500/10">
+            <article
+              key={service.title}
+              className="group rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-6 transition hover:-translate-y-1 hover:border-yellow-400/40 hover:bg-yellow-500/10"
+            >
               <div className="grid h-12 w-12 place-items-center rounded-2xl bg-yellow-500/10 text-yellow-300 group-hover:bg-yellow-400 group-hover:text-black">
                 {service.icon}
               </div>
@@ -409,10 +463,16 @@ export default function SantYapiWebsiteConcept() {
             title="Çizim tesliminde düzenli ve izlenebilir akış."
             description="Her çizim işi; gelen statik doneler, mimari değişiklikler, blok teslim tarihleri ve revizyon notlarıyla birlikte kontrollü şekilde ilerletilir. Amaç, şantiyede rahat okunabilen ve uygulamada kafa karıştırmayan temiz bir çizim paketi teslim etmektir."
           />
+
           <div className="space-y-4">
             {process.map((item, index) => (
-              <div key={item} className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black/20 p-5">
-                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-yellow-400 font-bold text-black">{index + 1}</div>
+              <div
+                key={item}
+                className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black/20 p-5"
+              >
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-yellow-400 font-bold text-black">
+                  {index + 1}
+                </div>
                 <p className="font-medium text-stone-100">{item}</p>
               </div>
             ))}
@@ -427,19 +487,30 @@ export default function SantYapiWebsiteConcept() {
             title="Kalıp, donatı ve uygulama paftalarından seçili çalışmalar."
             description="Gerçek çizim görselleri eklendiğinde bu alan portfolyo gibi çalışır. DWG ekran görüntüsü, PDF pafta çıktısı veya render edilmiş detay görseli kullanılabilir."
           />
+
           <p className="leading-8 text-stone-400">
-            Görselleri eklerken proje adı, pafta tipi ve kısa açıklama ile yayınlamak en temiz yöntem olur. Gizli bilgiler varsa paftadaki blok adı, ada-parsel, mühendis/müşteri isimleri kapatılarak paylaşılır.
+            Görselleri eklerken proje adı, pafta tipi ve kısa açıklama ile yayınlamak
+            en temiz yöntem olur. Gizli bilgiler varsa paftadaki blok adı, ada-parsel,
+            mühendis/müşteri isimleri kapatılarak paylaşılır.
           </p>
         </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projectGallery.map((project) => (
-            <article key={project.title} className="group rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-3 transition hover:-translate-y-1 hover:border-yellow-400/40">
+            <article
+              key={project.title}
+              className="group rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-3 transition hover:-translate-y-1 hover:border-yellow-400/40"
+            >
               {project.image ? (
-                <img src={project.image} alt={project.title} className="h-64 w-full rounded-[1.5rem] object-cover" />
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-64 w-full rounded-[1.5rem] object-cover"
+                />
               ) : (
                 <DrawingPlaceholder title={project.title} />
               )}
+
               <div className="p-4">
                 <p className="text-sm text-yellow-300">{project.category}</p>
                 <h3 className="mt-2 font-semibold text-white">{project.title}</h3>
@@ -455,14 +526,17 @@ export default function SantYapiWebsiteConcept() {
             <CompassIcon className="h-10 w-10" />
             <h2 className="mt-6 text-4xl font-bold tracking-tight">Misyonumuz</h2>
             <p className="mt-5 leading-8 text-black/75">
-              Müşterilerin taleplerine hızlı geri dönüş veren, temiz pafta düzeniyle okunabilir, uygulanabilir ve kontrollü teknik çizim paketleri hazırlamak.
+              Müşterilerin taleplerine hızlı geri dönüş veren, temiz pafta düzeniyle
+              okunabilir, uygulanabilir ve kontrollü teknik çizim paketleri hazırlamak.
             </p>
           </div>
+
           <div className="border-t border-black/10 bg-black/90 p-8 text-white lg:border-l lg:border-t-0 lg:p-12">
             <WorkflowIcon className="h-10 w-10 text-yellow-300" />
             <h2 className="mt-6 text-4xl font-bold tracking-tight">Vizyonumuz</h2>
             <p className="mt-5 leading-8 text-stone-300">
-              Teknik çizim kalitesini, otomasyon gücünü ve düzenli revizyon takibini birleştirerek sektörde güven duyulan bir çizim ofisi standardı oluşturmak.
+              Teknik çizim kalitesini, otomasyon gücünü ve düzenli revizyon takibini
+              birleştirerek sektörde güven duyulan bir çizim ofisi standardı oluşturmak.
             </p>
           </div>
         </div>
@@ -476,14 +550,38 @@ export default function SantYapiWebsiteConcept() {
               title="Projenizi birlikte netleştirelim."
               description="Mimari proje, statik doneler veya revizyon notlarınızı iletin; çizim kapsamı, pafta listesi ve teslim planı üzerinden hızlıca değerlendirelim."
             />
+
             <div className="mt-8 space-y-4 text-stone-300">
-              <p className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-yellow-300" /> info@santyapi.com</p>
-              <p className="flex items-center gap-3"><PhoneIcon className="h-5 w-5 text-yellow-300" /> +90 530 905 73 36</p>
-              <p className="flex items-center gap-3"><MapPinIcon className="h-5 w-5 text-yellow-300" /> İstanbul / Türkiye</p>
+              <p className="flex items-center gap-3">
+                <MailIcon className="h-5 w-5 text-yellow-300" />
+                info@santyapi.com
+              </p>
+
+              <p className="flex items-center gap-3">
+                <PhoneIcon className="h-5 w-5 text-yellow-300" />
+                +90 530 905 73 36
+              </p>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-6 py-3 font-semibold text-black transition hover:bg-yellow-300"
+              >
+                WhatsApp'tan Yaz
+              </a>
+
+              <p className="flex items-center gap-3">
+                <MapPinIcon className="h-5 w-5 text-yellow-300" />
+                İstanbul / Türkiye
+              </p>
             </div>
           </div>
 
-          <form className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6" onSubmit={handleContactSubmit}>
+          <form
+            className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6"
+            onSubmit={handleContactSubmit}
+          >
             <div className="grid gap-4">
               <input
                 aria-label="Adınız / Firma adınız"
@@ -493,6 +591,7 @@ export default function SantYapiWebsiteConcept() {
                 onChange={(event) => updateFormField("name", event.target.value)}
                 required
               />
+
               <input
                 aria-label="Telefon veya e-posta"
                 className="rounded-2xl border border-white/10 bg-black/30 px-5 py-4 text-white outline-none placeholder:text-stone-500 focus:border-yellow-400"
@@ -501,6 +600,7 @@ export default function SantYapiWebsiteConcept() {
                 onChange={(event) => updateFormField("contact", event.target.value)}
                 required
               />
+
               <select
                 aria-label="Hizmet seçiniz"
                 className="rounded-2xl border border-white/10 bg-black/30 px-5 py-4 text-stone-300 outline-none focus:border-yellow-400"
@@ -513,6 +613,7 @@ export default function SantYapiWebsiteConcept() {
                 <option>Revizyon / kontrol</option>
                 <option>Diğer</option>
               </select>
+
               <textarea
                 aria-label="Projeniz hakkında kısa bilgi"
                 className="min-h-36 rounded-2xl border border-white/10 bg-black/30 px-5 py-4 text-white outline-none placeholder:text-stone-500 focus:border-yellow-400"
@@ -521,16 +622,17 @@ export default function SantYapiWebsiteConcept() {
                 onChange={(event) => updateFormField("message", event.target.value)}
                 required
               />
+
               <button
                 type="submit"
-                disabled={formStatus.type === "sending"}
-                className="rounded-full bg-yellow-400 px-7 py-4 font-bold text-black transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-full bg-yellow-400 px-7 py-4 font-bold text-black transition hover:bg-yellow-300"
               >
                 Mesaj Gönder
               </button>
             </div>
           </form>
         </div>
+
         <footer className="border-t border-white/10 px-6 py-7 text-center text-sm text-stone-500">
           © 2026 Sant Yapı. Tüm hakları saklıdır. santyapi.com
         </footer>
@@ -538,37 +640,3 @@ export default function SantYapiWebsiteConcept() {
     </main>
   );
 }
-
-/*
-Suggested tests for a normal React/Vitest or Jest setup:
-
-import { render, screen } from "@testing-library/react";
-import SantYapiWebsiteConcept from "./SantYapiWebsiteConcept";
-
-test("renders brand name", () => {
-  render(<SantYapiWebsiteConcept />);
-  expect(screen.getByText(/SANT YAPI/i)).toBeInTheDocument();
-});
-
-test("renders main hero heading", () => {
-  render(<SantYapiWebsiteConcept />);
-  expect(screen.getByText(/Projeleriniz için net, okunabilir ve sahaya uygun teknik çizimler/i)).toBeInTheDocument();
-});
-
-test("renders service cards", () => {
-  render(<SantYapiWebsiteConcept />);
-  expect(screen.getByText(/Statik Proje Çizimleri/i)).toBeInTheDocument();
-  expect(screen.getByText(/Kalıp ve Donatı Paftaları/i)).toBeInTheDocument();
-  expect(screen.getByText(/Revizyon ve Çizim Takibi/i)).toBeInTheDocument();
-});
-
-test("renders gallery section", () => {
-  render(<SantYapiWebsiteConcept />);
-  expect(screen.getByText(/Proje Görselleri/i)).toBeInTheDocument();
-});
-
-test("renders contact form submit button", () => {
-  render(<SantYapiWebsiteConcept />);
-  expect(screen.getByRole("button", { name: /Mesaj Gönder/i })).toBeInTheDocument();
-});
-*/
