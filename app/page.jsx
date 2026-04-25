@@ -438,7 +438,7 @@ export default function SantYapiWebsiteConcept() {
             />
             <div className="mt-8 space-y-4 text-stone-300">
               <p className="flex items-center gap-3"><MailIcon className="h-5 w-5 text-yellow-300" /> info@santyapi.com</p>
-              <p className="flex items-center gap-3"><PhoneIcon className="h-5 w-5 text-yellow-300" /> +90 ___ ___ __ __</p>
+              <p className="flex items-center gap-3"><PhoneIcon className="h-5 w-5 text-yellow-300" /> +90 530 905 73 76</p>
               <p className="flex items-center gap-3"><MapPinIcon className="h-5 w-5 text-yellow-300" /> İstanbul / Türkiye</p>
             </div>
           </div>
