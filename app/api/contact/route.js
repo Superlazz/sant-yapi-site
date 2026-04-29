@@ -22,28 +22,26 @@ export async function POST(request) {
     const missingEnv = requiredEnv.filter((key) => !process.env[key]);
 
     if (missingEnv.length > 0) {
-      console.error("Eksik mail ayarı:", missingEnv);
       return Response.json(
         { ok: false, message: `Mail ayarları eksik: ${missingEnv.join(", ")}` },
         { status: 500 }
       );
     }
 
-    const port = Number(process.env.SMTP_PORT);
+    const port = Number(process.env.SMTP_PORT || 587);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port,
-      secure: port === 465,
+      secure: false,
+      ignoreTLS: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    await transporter.verify();
-
-    const mailResult = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"Sant Yapı Web Sitesi" <${process.env.SMTP_USER}>`,
       to: process.env.MAIL_TO,
       replyTo: contact.includes("@") ? contact : process.env.SMTP_USER,
@@ -74,11 +72,9 @@ ${message}
       `,
     });
 
-    console.log("Mail gönderildi:", mailResult.messageId);
-
     return Response.json({
       ok: true,
-      message: "Mesajınız başarıyla info@santyapi.com adresine gönderildi.",
+      message: "Mesajınız başarıyla gönderildi.",
     });
   } catch (error) {
     console.error("İletişim formu mail hatası:", error);
