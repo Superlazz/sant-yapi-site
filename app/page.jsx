@@ -262,10 +262,6 @@ export default function SantYapiWebsiteConcept() {
     type: "idle",
     message: "",
   });
-  const [formStatus, setFormStatus] = useState({
-    type: "idle",
-    message: "",
-  });
 
   function updateFormField(field, value) {
     setFormData((current) => ({ ...current, [field]: value }));
